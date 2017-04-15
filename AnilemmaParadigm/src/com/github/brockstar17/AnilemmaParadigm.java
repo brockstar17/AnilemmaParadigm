@@ -7,7 +7,7 @@ public class AnilemmaParadigm {
 		//Plotting.dataProcess();
 		new GUI();
 		new Display();
-
+		AudioAquirer.startRecording();
 	}
 	
 }
