@@ -34,7 +34,7 @@ public class Plotting {
 
 	public static int[] byteProcess(byte[] b) {
 
-		int[] array = new int[b.length / 2];
+		int[] array = new int[(b.length)];
 
 		for (int i = 0; i <= b.length - 1; i += 2) {
 			array[i] = (b[i] & 0xFF) * (b[i + 1] & 0xFF);
