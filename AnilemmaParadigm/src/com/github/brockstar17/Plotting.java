@@ -12,10 +12,8 @@ public class Plotting {
 		//0-65535		
 		//683x683
 		
-<<<<<<< HEAD
-		//sum stuff
-		return new int[]{};
-=======
+		//<<<<<<< HEAD
+		//=======
 		for(int i = 0; i <= x.length; i++){
 			
 			line.add(683*(x[i]/65535));
@@ -34,7 +32,7 @@ public class Plotting {
 		
 		return line;
 		
->>>>>>> branch 'master' of https://github.com/brockstar17/AnilemmaParadigm.git
+		//>>>>>>> branch 'master' of https://github.com/brockstar17/AnilemmaParadigm.git
 	}
 	
 
