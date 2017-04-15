@@ -42,7 +42,7 @@ import javax.sound.sampled.TargetDataLine;
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Plotting.byteProcess(OutArray);
+				Plotting.dataProcess(Plotting.byteProcess(OutArray));
 
 				// runVar =false; // to stop running after one time
 			} // end of while
