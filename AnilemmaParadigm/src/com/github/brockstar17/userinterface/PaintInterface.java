@@ -1,7 +1,6 @@
 package com.github.brockstar17.userinterface;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,14 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import com.github.brockstar17.BUtils;
 
 @SuppressWarnings("serial")
 public class PaintInterface extends JPanel implements ActionListener{
 	private int s;
-	private JComboBox patternList;
+	private JComboBox lcolor;
+	private JComboBox audIn;
+	private String color;
+	private String ain;
 	
 	private String[] patternExamples = {
 			"Blue",
@@ -27,6 +28,12 @@ public class PaintInterface extends JPanel implements ActionListener{
 			
 	};
 	
+	private String[] audioIn = {
+			"LINE_IN",
+			"MICROPHONE",
+			"SPEAKER"
+	};
+	
 	/**
 	 * 
 	 * @param s the width of the component
@@ -34,7 +41,9 @@ public class PaintInterface extends JPanel implements ActionListener{
 	public PaintInterface(int s){
 		this.s = s;
 		
-		addTextInput(patternExamples, false);
+		lcolor = addTextInput(patternExamples, false);
+		
+		audIn = addTextInput(audioIn, false);
 	}
 	
 	@Override
@@ -54,18 +63,24 @@ public class PaintInterface extends JPanel implements ActionListener{
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void addTextInput(String[] pattern, boolean edit){
-		patternList = new JComboBox(pattern);
-        patternList.setEditable(edit);
-        patternList.addActionListener(this);
+	private JComboBox addTextInput(String[] pattern, boolean edit){
+		JComboBox jcb = new JComboBox(pattern);
+		jcb.setEditable(edit);
+		jcb.addActionListener(this);
         
-        this.add(patternList);
+        this.add(jcb);
+        
+        return jcb;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(patternList.getSelectedItem() == "Other"){
-			//String color = JOptionPane.
+		if(e.getSource() == lcolor && lcolor.getSelectedItem() == "Other"){
+			color = JOptionPane.showInputDialog("Enter a color");
+		}
+		
+		if(e.getSource() == audIn){
+			//call andrews crap
 		}
 	}
 }
