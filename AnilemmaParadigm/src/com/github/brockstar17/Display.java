@@ -4,9 +4,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Display extends JFrame{
+	
+	public JPanel panel = new JPanel();
 	
 	public Display(){
 		super("Display");
@@ -22,5 +25,9 @@ public class Display extends JFrame{
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
 		setResizable(false);
+	}
+	
+	public void drawScreen(){
+		
 	}
 }
