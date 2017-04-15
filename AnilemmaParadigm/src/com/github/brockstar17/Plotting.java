@@ -12,15 +12,18 @@ public class Plotting {
 	public static void dataProcess(int[] points) {
 		// 0-65535
 		// 683x683
-
+		//BUtils.sout(points.length);
+		
 		for (int i = 0; i < points.length; i++) {
-
+			
+			//BUtils.sout(683 * (points[i] / 65535));
 			line.add(683 * (points[i] / 65535));
 
 			if (i % 4 == 0 && i != 0) {
 				xs = (line.get(line.size() - 1) - 1) - (line.get(line.size() - 1) - 3);
 				ys = (line.get(line.size() - 1)) - (line.get(line.size() - 1) - 2);
-				line.add((int) Math.sqrt((xs * xs) + (ys * ys)));
+				//BUtils.sout((int) Math.sqrt((xs * xs) + (ys * ys)));
+				line.add(966-(int) Math.sqrt((xs * xs) + (ys * ys)));
 			}
 		}
 	}
@@ -39,6 +42,8 @@ public class Plotting {
 		for (int i = 0; i <= b.length - 1; i += 2) {
 			array[i] = (b[i] & 0xFF) * (b[i + 1] & 0xFF);
 		}
+		
+		
 
 		return array;
 	}
