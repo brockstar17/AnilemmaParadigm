@@ -26,14 +26,12 @@ public class PaintInterface extends JPanel{
 		
 		Graphics2D g2d = (Graphics2D) g;
         Color color1 = Color.BLACK;
-        Color color2 = Color.decode("#8514FF");
-        int w = getWidth();
-        int h = getHeight(); 
+        Color color2 = Color.decode("#8514FF"); 
         GradientPaint gp = new GradientPaint(
                 0, 0, color1,
-                0, h, color2);
+                0, s, color2);
 
         g2d.setPaint(gp);
-        g2d.fillRect(0, 0, w, h);
+        g2d.fillRect(0, 0, s, s);
 	}
 }

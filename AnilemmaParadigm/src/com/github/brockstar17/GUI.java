@@ -7,9 +7,12 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import com.github.brockstar17.userinterface.PaintInterface;
+import com.github.brockstar17.userinterface.TextBox;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame{
+	
+	private TextBox test;
 	
 	
 	public GUI(){
@@ -21,6 +24,9 @@ public class GUI extends JFrame{
 		
 		Container c = getContentPane();
 		c.add(new PaintInterface(s));
+		test = new TextBox(20, 20, 40, 20, "Test");
+		c.add(test);
+		
 		
 		setLocation(0, 0);
 		
