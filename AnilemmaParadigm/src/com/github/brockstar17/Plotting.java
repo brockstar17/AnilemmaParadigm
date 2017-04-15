@@ -9,14 +9,13 @@ public class Plotting {
 	static List<Integer> line2 = new ArrayList<Integer>();
 	static int xs, ys;
 
-	public static void dataProcess(int[] x, int[] y){
+	public static void dataProcess(int[] points){
 		//0-65535		
 		//683x683
 		
-		for(int i = 0; i <= x.length; i++){
+		for(int i = 0; i <= points.length; i++){
 			
-			line.add(683*(x[i]/65535));
-			line.add(683*(y[i]/65535));
+			line.add(683*(points[i]/65535));
 			
 			if(i % 4 == 0 && i != 0){				
 				xs = (line.get(line.size()-1)-1) - (line.get(line.size()-1)-3);
@@ -35,7 +34,7 @@ public class Plotting {
 	
 	public static int[] byteProcess(byte[] b) {
 				
-		int[] array = new int[b.length];
+		int[] array = new int[b.length/2];
 		
 		for(int i = 0; i <= b.length; i+=2){
 			array[i] = (b[i] & 0xFF) * (b[i+1] & 0xFF);
