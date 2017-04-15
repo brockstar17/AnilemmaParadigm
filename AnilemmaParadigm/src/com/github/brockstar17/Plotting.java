@@ -13,7 +13,7 @@ public class Plotting {
 		// 0-65535
 		// 683x683
 
-		for (int i = 0; i <= points.length; i++) {
+		for (int i = 0; i < points.length; i++) {
 
 			line.add(683 * (points[i] / 65535));
 
