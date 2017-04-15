@@ -11,9 +11,12 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Display extends JFrame{
 	
+	public Dimension size;
+	
 	public Display(){
 		super("Display");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		size = this.getSize();
 		int s = (int)(d.getWidth()/2);
 		
 		setSize(s, s);
