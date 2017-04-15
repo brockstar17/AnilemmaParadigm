@@ -6,6 +6,7 @@ import java.util.List;
 public class Plotting {
 
 	static List<Integer> line = new ArrayList<Integer>();
+	static List<Integer> line2 = new ArrayList<Integer>();
 	static int xs, ys;
 
 	public static void dataProcess(int[] x, int[] y){
@@ -27,8 +28,9 @@ public class Plotting {
 
 	public static List<Integer> dataReturn() {
 
-		return line;
-
+		line2 = line;
+		line.clear();
+		return line2;
 	}
 
 }
