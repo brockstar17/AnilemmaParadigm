@@ -15,7 +15,7 @@ import javax.sound.sampled.TargetDataLine;
 
 		public void run() {
 			AudioInputStream AIO = null;
-			byte[] OutArray = new byte[44100];
+			byte[] OutArray = new byte[48000];
 			DataLine.Info line = new DataLine.Info(TargetDataLine.class, LocalFormat);
 			System.out.println("Running!");
 			if (!AudioSystem.isLineSupported(line)) {

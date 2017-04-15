@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Plotting {
 
-	private static List<Integer> line = new ArrayList<Integer>();
-	private static List<Integer> line2 = new ArrayList<Integer>();
+	private static List<Double> line = new ArrayList<Double>();
+	private static List<Double> line2 = new ArrayList<Double>();
 	private static int xs, ys;
 
-	public static void dataProcess(int[] points) {
+	public static void dataProcess(double[] points) {
 		// 0-65535
 		// 683x683
 		//BUtils.sout(points.length);
@@ -20,32 +20,41 @@ public class Plotting {
 			line.add(683 * (points[i] / 65535));
 
 			if (i % 4 == 0 && i != 0) {
-				xs = (line.get(line.size() - 1) - 1) - (line.get(line.size() - 1) - 3);
-				ys = (line.get(line.size() - 1)) - (line.get(line.size() - 1) - 2);
+				xs = (int) ((line.get(line.size() - 1) - 1) - (line.get(line.size() - 1) - 3));
+				ys = (int) ((line.get(line.size() - 1)) - (line.get(line.size() - 1) - 2));
 				//BUtils.sout((int) Math.sqrt((xs * xs) + (ys * ys)));
-				line.add(966-(int) Math.sqrt((xs * xs) + (ys * ys)));
+				line.add(966 - Math.sqrt((xs * xs) + (ys * ys)));
 			}
 		}
+		BUtils.sout(dataReturn());
 		
 		
 	}
 
-	public static List<Integer> dataReturn() {
+	public static List<Double> dataReturn() {
 
 		line2 = line;
 		/*if(line.isEmpty()){
 			BUtils.sout("Empy");
 		}*/
+		BUtils.sout(line);
 		line.clear();
 		return line2;
 	}
 
-	public static int[] byteProcess(byte[] b) {
+	public static double[] byteProcess(byte[] b) {
 
-		int[] array = new int[(b.length)];
+		double[] array = new double[(b.length/2)];
+		int a, c, d = 0;
 
 		for (int i = 0; i <= b.length - 1; i += 2) {
-			array[i] = (b[i] & 0xFF) * (b[i + 1] & 0xFF);
+			a = ((b[i] & 0xFF) + 0);
+			c = ((b[i + 1] & 0xFF) + 0);
+			
+			//BUtils.sout("a " + a + "b " + c);
+			
+			array[d] = a * c;
+			d++;
 		}
 		
 		
