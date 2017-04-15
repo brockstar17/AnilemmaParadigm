@@ -7,6 +7,8 @@ import javax.sound.sampled.*;
 public class AudioRunner implements Runnable {
 	private static AudioFormat LocalFormat;
 	private static boolean runVar = false;
+	
+	private PaintDisplay pd;
 
 	public void run() {
 		AudioInputStream AIO = null;
@@ -22,7 +24,7 @@ public class AudioRunner implements Runnable {
 				AudioInput.open(LocalFormat);
 				AudioInput.start();
 				AIO = new AudioInputStream(AudioInput);
-				System.out.println(AudioInput.isRunning());
+				//System.out.println(AudioInput.isRunning());
 			} catch (LineUnavailableException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -40,7 +42,8 @@ public class AudioRunner implements Runnable {
 				e.printStackTrace();
 			}
 			//AudioAquirer.dataProcess(OutArray);
-			Plotting.dataProcess(Plotting.byteProcess(OutArray));
+			//BUtils.sout("AR");
+			PaintDisplay.dataProcess(PaintDisplay.byteProcess(OutArray));
 			// runVar =false; // to stop running after one time
 		} // end of while
 

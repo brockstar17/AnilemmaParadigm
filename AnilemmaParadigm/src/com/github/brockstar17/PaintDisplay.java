@@ -1,17 +1,28 @@
 package com.github.brockstar17;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class PaintDisplay extends JPanel {
+@SuppressWarnings("serial")
+public class PaintDisplay extends JPanel implements ActionListener{
 
 	private int scale = 200;
 	public int inc = 0;
+	
+	static ArrayList<Double> line = new ArrayList<Double>();
+	private static int xs, ys;
+	
+	public PaintDisplay(){
+		Timer t = new Timer(1, this);
+		t.start();
+		
+	}
 
 	public void setScale(int a) {
 		scale = a;
@@ -25,12 +36,75 @@ public class PaintDisplay extends JPanel {
 		// getData
 		//List<Double> l = Plotting.dataReturn();
 		//BUtils.sout(l.get(4));
-		List<Double> l = Plotting.line;
-		Plotting.line.clear();
+		//List<Double> l = //((List<Double>) ((ArrayList<Double>) line).clone()); 
+		//BUtils.sout(line);
+		//Plotting.line.clear();
+		
 
-		for (int k = 0; k < l.size(); k += 5) {
-			Line temp = new Line(l.get(k) * scale,l.get(k + 1) * scale,l.get(k + 2) * scale, l.get(k + 3) * scale, l.get(k + 4));
+		for (int k = 0; k < line.size(); k += 5) {
+			Line temp = new Line(line.get(k) ,line.get(k + 1),line.get(k + 2), line.get(k + 3), line.get(k + 4));
 			temp.drawLine(g, new int[] { 0, 255, 0 });
 		}
+		//Line a = new Line(100.0, 100.0, 200.0, 200.0, 255);
+		//a.drawLine(g, new int[]{255,0,0});
+	}
+	
+	public static void dataProcess(double[] points) {
+		// 0-65535
+		// 683x683
+		//BUtils.sout(points.length);
+		
+		for (int i = 0; i < points.length; i++) {
+			
+			//BUtils.sout(683 * (points[i] / 65535));
+			line.add(683 * (points[i] / 65535));
+
+			if (i+1 % 4 == 0 && i != 0) {
+				xs = (int) ((line.get(line.size() - 1) - 1) - (line.get(line.size() - 1) - 3));
+				ys = (int) ((line.get(line.size() - 1)) - (line.get(line.size() - 1) - 2));
+				//BUtils.sout((int) Math.sqrt((xs * xs) + (ys * ys)));
+				line.add((966 - Math.sqrt((xs * xs) + (ys * ys)))/966 * 255);
+			}
+		}
+		//BUtils.sout(line.get(0) + " " + line.get(1) + " " + line.get(4));
+		//BUtils.sout(line);
+		
+		
+	}
+
+	public static List<Double> dataReturn() {
+
+		/*if(line.isEmpty()){
+			BUtils.sout("Empy");
+		}*/
+		//BUtils.sout(line);
+		//line.clear();
+		return line;
+	}
+
+	public static double[] byteProcess(byte[] b) {
+
+		double[] array = new double[(b.length/2)];
+		int a, c, d = 0;
+
+		for (int i = 0; i <= b.length - 1; i += 2) {
+			a = ((b[i] & 0xFF) + 0);
+			c = ((b[i + 1] & 0xFF) + 0);
+			
+			//BUtils.sout("a " + a + "b " + c);
+			
+			array[d] = a * c;
+			d++;
+		}
+		
+		
+
+		return array;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		repaint();
+		
 	}
 }

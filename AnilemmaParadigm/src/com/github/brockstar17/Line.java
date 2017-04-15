@@ -17,7 +17,7 @@ public class Line {
 	
 	//draw line on g with int[3] color
 	public void drawLine(Graphics g, int[] color){
-		g.setColor(new Color(color[0], color[1], color[2], this.inten));
+		g.setColor(new Color(color[0], color[1], color[2]));
 		g.drawLine(this.x1, this.y1, this.x2, this.y2);
 	}
 }
