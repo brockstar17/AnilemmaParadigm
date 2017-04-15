@@ -4,7 +4,7 @@ import javax.sound.sampled.AudioFormat;
 
 public class AudioAquirer {
 public static void startRecording(){
-		AudioRunner.setFormat(new AudioFormat(192000,16,2,false,false));// for audioformat Sample rate, bit depth, channels,signed,BigEndian
+		AudioRunner.setFormat(new AudioFormat(192000,16,2,true,false));// for audioformat Sample rate, bit depth, channels,signed,BigEndian
 		AudioRunner.changeThread(true);
 		(new Thread(new AudioRunner())).start();// start audio runner Run method
 		//AudioRunner.changeThread(false);
