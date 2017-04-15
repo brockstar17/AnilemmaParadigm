@@ -6,7 +6,7 @@ public class Plotting {
 	public static int[] dataProcess(int[] x, int[] y){
 		
 		//sum stuff
-		
+		return new int[]{};
 	}
 
 }
