@@ -6,24 +6,25 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.Line.Info;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
 
 	public class AudioRunner implements Runnable {
 		private static AudioFormat LocalFormat;
 		private static boolean runVar = false;
+		private static Port PortType = (Port) Port.Info.LINE_IN;
 
 		public void run() {
 			AudioInputStream AIO = null;
 			byte[] OutArray = new byte[48000];
-			DataLine.Info line = new DataLine.Info(TargetDataLine.class, LocalFormat);
+			//DataLine.Info line = new DataLine.Info(TargetDataLine.class, LocalFormat);
 			System.out.println("Running!");
-			if (!AudioSystem.isLineSupported(line)) {
-				System.out.println("Line input is not supported! Check line input cables.");
-				runVar = false;
-			} else {
+			
 				try {
-					TargetDataLine AudioInput = (TargetDataLine) AudioSystem.getLine(line);
+					TargetDataLine AudioInput = (TargetDataLine) AudioSystem.getLine(
+				            (Info) PortType);
 					AudioInput.open(LocalFormat);
 					AudioInput.start();
 					AIO = new AudioInputStream(AudioInput);
@@ -33,7 +34,7 @@ import javax.sound.sampled.TargetDataLine;
 					System.out.println("The audio stream was unavaliable. check that no other programs are recording audio.");
 				}
 
-			}
+			
 
 			while (runVar) { // Allow stopping of thread
 				try {
@@ -55,6 +56,22 @@ import javax.sound.sampled.TargetDataLine;
 			
 
 		}// end of run
+		public static void changeInput(String s){
+			switch(s){
+			case "LINE_IN":
+				PortType = (Port) Port.Info.LINE_IN;
+				break;
+			case "MICROPHONE":
+				PortType = (Port) Port.Info.MICROPHONE;
+				break;
+			case "SPEAKER":
+				PortType = (Port) Port.Info.SPEAKER;
+				break;
+			default:
+				
+				break;
+			}
+		}
 
 		public static void changeThread(boolean run) {
 			runVar = run;
