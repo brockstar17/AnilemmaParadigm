@@ -23,8 +23,10 @@ public class PaintDisplay extends JPanel {
 		int w = this.getWidth(), h = this.getHeight();
 		g.fillRect(0, 0, w, h);
 		// getData
-		List<Double> l = Plotting.dataReturn();
+		//List<Double> l = Plotting.dataReturn();
 		//BUtils.sout(l.get(4));
+		List<Double> l = Plotting.line;
+		Plotting.line.clear();
 
 		for (int k = 0; k < l.size(); k += 5) {
 			Line temp = new Line(l.get(k) * scale,l.get(k + 1) * scale,l.get(k + 2) * scale, l.get(k + 3) * scale, l.get(k + 4));

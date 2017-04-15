@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Plotting {
 
-	private static List<Double> line = new ArrayList<Double>();
-	private static List<Double> line2 = new ArrayList<Double>();
+	static List<Double> line = new ArrayList<Double>();
+	static List<Double> line2 = new ArrayList<Double>();
 	private static int xs, ys;
 
 	public static void dataProcess(double[] points) {
@@ -37,7 +37,7 @@ public class Plotting {
 		/*if(line.isEmpty()){
 			BUtils.sout("Empy");
 		}*/
-		BUtils.sout(line);
+		//BUtils.sout(line);
 		line.clear();
 		return line2;
 	}
