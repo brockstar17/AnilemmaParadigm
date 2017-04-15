@@ -3,7 +3,7 @@ package com.github.brockstar17;
 public class Plotting {
 	
 	
-	public static int[] DataProcess(int[] x, int[] y){
+	public static int[] dataProcess(int[] x, int[] y){
 		
 		//sum stuff
 		
