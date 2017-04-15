@@ -36,7 +36,7 @@ public class Plotting {
 
 		int[] array = new int[b.length / 2];
 
-		for (int i = 0; i <= b.length; i += 2) {
+		for (int i = 0; i <= b.length - 1; i += 2) {
 			array[i] = (b[i] & 0xFF) * (b[i + 1] & 0xFF);
 		}
 
