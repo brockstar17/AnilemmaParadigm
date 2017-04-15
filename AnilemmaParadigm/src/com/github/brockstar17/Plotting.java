@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Plotting {
 
-	static List<Integer> line = new ArrayList<Integer>();
-	static List<Integer> line2 = new ArrayList<Integer>();
-	static int xs, ys;
+	private static List<Integer> line = new ArrayList<Integer>();
+	private static List<Integer> line2 = new ArrayList<Integer>();
+	private static int xs, ys;
 
 	public static void dataProcess(int[] points) {
 		// 0-65535
@@ -26,11 +26,16 @@ public class Plotting {
 				line.add(966-(int) Math.sqrt((xs * xs) + (ys * ys)));
 			}
 		}
+		
+		
 	}
 
 	public static List<Integer> dataReturn() {
 
 		line2 = line;
+		/*if(line.isEmpty()){
+			BUtils.sout("Empy");
+		}*/
 		line.clear();
 		return line2;
 	}
