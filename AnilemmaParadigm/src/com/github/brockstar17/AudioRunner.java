@@ -4,57 +4,73 @@ import java.io.IOException;
 
 import javax.sound.sampled.*;
 
-public class AudioRunner implements Runnable {
-	private static AudioFormat LocalFormat;
-	private static boolean runVar = false;
-	
-	private PaintDisplay pd;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.sound.sampled.*;
+
+public class AudioRunner implements Runnable {
+	private static AudioFormat LocalFormat = new AudioFormat(192000, 16, 2, true, false);
+	private static boolean runVar = false;
+	private ByteArrayOutputStream recordBytes;
+	private static TargetDataLine audioLine = null;
 	public void run() {
-		AudioInputStream AIO = null;
-		byte[] OutArray = new byte[44100];
-		DataLine.Info info = new DataLine.Info(TargetDataLine.class, LocalFormat);
-		System.out.println("Running!");
-		if (!AudioSystem.isLineSupported(info)) {
-			System.out.println("Line input is not supported! Check line input cables.");
-			runVar = false;
-		} else {
-			try {
-				TargetDataLine AudioInput = (TargetDataLine) AudioSystem.getLine(info);
-				AudioInput.open(LocalFormat);
-				AudioInput.start();
-				AIO = new AudioInputStream(AudioInput);
-				//System.out.println(AudioInput.isRunning());
+		try {
+			audioLine = AudioSystem.getTargetDataLine(LocalFormat);
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	        DataLine.Info info = new DataLine.Info(TargetDataLine.class, LocalFormat);
+	 
+	        // checks if system supports the data line
+	        if (!AudioSystem.isLineSupported(info)) {
+	            try {
+					throw new LineUnavailableException(
+					        "The system does not support the specified format.");
+				} catch (LineUnavailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+	 
+	        try {
+				audioLine = AudioSystem.getTargetDataLine(LocalFormat);
 			} catch (LineUnavailableException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				System.out.println("The audio stream was unavaliable. check that no other programs are recording audio.");
 			}
-			
-
-		}
-
-		while (runVar) { // Allow stopping of thread
-			try {
-				AIO.read(OutArray);
-			} catch (IOException e) {
+	 
+	        try {
+				audioLine.open(LocalFormat);
+			} catch (LineUnavailableException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//AudioAquirer.dataProcess(OutArray);
-			//BUtils.sout("AR");
-			PaintDisplay.dataProcess(PaintDisplay.byteProcess(OutArray));
-			// runVar =false; // to stop running after one time
-		} // end of while
+	        audioLine.start();
+	        byte[] buffer = new byte[48000];
+	        int bytesRead = 0;
+	    recordBytes = new ByteArrayOutputStream();
+	 
+	        while (runVar) {
+	            bytesRead = audioLine.read(buffer, 0, buffer.length);
+	            recordBytes.write(buffer, 0, bytesRead);
+	            PaintDisplay.dataProcess(PaintDisplay.byteProcess(buffer));
+	        }// end of while
 
 	}// end of run
 
 	public static void changeThread(boolean run) {
 		runVar = run;
-	}
+		if(audioLine != null && run == false) {
+	            audioLine.drain();
+	            audioLine.close();
+	        }
+	    }
 
 	public static void setFormat(AudioFormat AF) {
 		LocalFormat = AF;
 	}
-
 }
+
